@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View more</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <meta property="og:image" content="https://i.pinimg.com/736x/49/d8/8f/49d88f2aa96cd0f2916326aa8d24fc39.jpg">
+  <style>
+    /* ====== Variables ====== */
+    :root {
+      --gap: 16px;
+      --card-radius: 12px;
+      --video-aspect: 9/16;
+      --max-width: 1200px;
+      --bg: #f4f5f7;
+      --card-bg: #000;
+      --overlay-bg: rgba(0, 0, 0, 0.35);
+      --accent: #2563eb;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      margin: 0;
+    }
+
+    /* ====== Navbar ====== */
+    nav {
+      background: #222;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin-left: 20px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* ====== Swiper Banner ====== */
+    .swiper {
+      width: 100%;
+      height: 400px;
+      margin-bottom: 24px;
+      background-color: #000;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ====== Video Grid ====== */
+    .container {
+      max-width: var(--max-width);
+      width: 100%;
+      margin: auto;
+      padding: 0 16px 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+    }
+
+    .media {
+      width: 100%;
+      aspect-ratio: var(--video-aspect);
+      position: relative;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--overlay-bg);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .card.playing .overlay {
+      opacity: 0;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    /* Bottom fixed ad */
+    .bottom-ad {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #ff5722;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      font-size: 18px;
+      box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.25);
+      z-index: 9999;
+      display: block;
+      /* visible on page load */
+    }
+
+    .bottom-ad a {
+      color: #fff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">My Videos</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Categories</a></li>
+      <li><a href="#">Trending</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Swiper Banner -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="image copy.png" alt="Banner 1"></div>
+      <div class="swiper-slide"><img src="image copy 2.png" alt="Banner 2"></div>
+      <div class="swiper-slide"><img src="image copy 4.png" alt="Banner 3"></div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Video Grid -->
+  <div class="container">
+    <div class="grid">
+      <div class="card" onclick="location.href='video.html?src=vdo.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+      <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+      <!-- Add more cards -->
+          <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+         <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+         <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+         <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+         <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+         <div class="card" onclick="location.href='video.html?src=vdo2.mp4'">
+        <div class="media">
+          <video muted preload="metadata" playsinline loop>
+            <source src="vdo2.mp4" type="video/mp4">
+          </video>
+          <div class="overlay">▶ Play</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="content">
+    <h1>Welcome to my page</h1>
+    <p>Scroll down — the ad stays fixed at the bottom.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est sed velit fermentum condimentum.</p>
+    <p>More content here...</p>
+  </div> -->
+
+  <div class="bottom-ad">
+    🚀 Special offer! <a href="#">Click here to learn more</a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // Swiper Init
+    var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay: 3000,
+      },
+      loop: true,
+    });
+
+    // Hover Play
+    const cards = document.querySelectorAll('.card');
+    function pauseAllExcept(currentVid) {
+      cards.forEach(c => {
+        const v = c.querySelector('video');
+        if (v !== currentVid) {
+          v.pause();
+          c.classList.remove('playing');
+        }
+      });
+    }
+    cards.forEach(card => {
+      const vid = card.querySelector('video');
+      card.addEventListener('mouseenter', () => {
+        pauseAllExcept(vid);
+        vid.play();
+        card.classList.add('playing');
+      });
+      card.addEventListener('mouseleave', () => {
+        vid.pause();
+        card.classList.remove('playing');
+      });
+    });
+  </script>
+</body>
+
+</html>

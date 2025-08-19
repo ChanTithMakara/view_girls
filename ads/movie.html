@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Search & Play</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    margin: 0;
+  }
+  header {
+    background: #222;
+    padding: 15px;
+    text-align: center;
+  }
+  input[type="text"] {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    border: none;
+    border-radius: 4px;
+  }
+  .movie-grid {
+    background-color: red;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+  .movie {
+    background: #1b1b1b;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .movie:hover {
+    transform: scale(1.05);
+  }
+  .movie img {
+    width: 100%;
+    height: auto;
+  }
+  .movie-title {
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+  .video-player {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+  }
+  .video-player iframe {
+    width: 80%;
+    height: 60%;
+  }
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>My Movie Web</h1>
+  <input type="text" id="searchBar" placeholder="Search for a movie...">
+</header>
+
+<div class="movie-grid" id="movieGrid">
+  <!-- Example movies -->
+  <div class="movie" data-title="Action Movie" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
+    <img src="https://i.pinimg.com/736x/e9/f3/ab/e9f3abddcbfa6a294799e60068b0bf61.jpg" alt="Action Movie">
+    <div class="movie-title">Action Movie</div>
+  </div>
+  <div class="movie" data-title="Comedy Movie" data-video="https://www.youtube.com/embed/tgbNymZ7vqY">
+    <img src="https://i.pinimg.com/1200x/89/0b/72/890b7263120d1ec363d8784b248f75df.jpg" alt="Comedy Movie">
+    <div class="movie-title">Comedy Movie</div>
+  </div>
+  <div class="movie" data-title="Drama Movie" data-video="https://www.youtube.com/embed/V-_O7nl0Ii0">
+    <img src="https://i.pinimg.com/1200x/26/61/53/266153ea6e797a737525c524cce91125.jpg" alt="Drama Movie">
+    <div class="movie-title">Drama Movie</div>
+  </div>
+</div>
+
+<div class="video-player" id="videoPlayer">
+  <span class="close-btn" onclick="closeVideo()">&times;</span>
+  <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+  const searchBar = document.getElementById("searchBar");
+  const movies = document.querySelectorAll(".movie");
+
+  searchBar.addEventListener("input", function() {
+    const query = searchBar.value.toLowerCase();
+    movies.forEach(movie => {
+      const title = movie.getAttribute("data-title").toLowerCase();
+      movie.style.display = title.includes(query) ? "block" : "none";
+    });
+  });
+
+  movies.forEach(movie => {
+    movie.addEventListener("click", function() {
+      const videoLink = movie.getAttribute("data-video");
+      document.getElementById("videoFrame").src = videoLink;
+      document.getElementById("videoPlayer").style.display = "flex";
+    });
+  });
+
+  function closeVideo() {
+    document.getElementById("videoFrame").src = "";
+    document.getElementById("videoPlayer").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
